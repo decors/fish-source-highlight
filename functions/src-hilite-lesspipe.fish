@@ -1,6 +1,5 @@
 function src-hilite-lesspipe
     test -f $source_highlight_style_file; and set stylefile $source_highlight_style_file; or set stylefile esc.style
-
     for source in $argv
         switch "$source"
             case "*ChangeLog" "*changelog"
