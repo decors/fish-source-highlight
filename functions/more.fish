@@ -1,7 +1,7 @@
 function more
-    if command more --version >/dev/null ^/dev/null
+    if echo | command more -R >/dev/null ^/dev/null
         set -lx MORE '-R'
-        type -fq source-highlight; and set -lx LESSOPEN '| src-hilite-lesspipe %s'
+        type -q src-hilite-lesspipe; and set -lx LESSOPEN '| src-hilite-lesspipe %s'
         command more $argv
     else
         command more $argv
