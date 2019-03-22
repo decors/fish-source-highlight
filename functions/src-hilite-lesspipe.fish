@@ -3,13 +3,17 @@ function src-hilite-lesspipe
     for source in $argv
         switch "$source"
             case "*ChangeLog" "*changelog"
-                source-highlight --failsafe -f esc --lang-def=changelog.lang --style-file=$stylefile -i "$source"
+                command source-highlight --failsafe -f esc --lang-def=changelog.lang --style-file=$stylefile -i "$source"
             case "Makefile" "*makefile"
-                source-highlight --failsafe -f esc --lang-def=makefile.lang --style-file=$stylefile -i "$source"
+                command source-highlight --failsafe -f esc --lang-def=makefile.lang --style-file=$stylefile -i "$source"
             case "*.tar" "*.tgz" "*.gz" "*.bz2" "*.xz" "*.zip"
-                lesspipe.sh "$source"
+                if type -qf lesspipe.sh
+                    command lesspipe.sh "$source"
+                else if type -qf lesspipe
+                    command lesspipe "$source"
+                end
             case "*"
-                source-highlight --failsafe --infer-lang -f esc --style-file=$stylefile -i "$source"
+                command source-highlight --failsafe --infer-lang -f esc --style-file=$stylefile -i "$source"
         end
     end
 end
